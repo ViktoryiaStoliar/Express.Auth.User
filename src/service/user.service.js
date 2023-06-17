@@ -20,9 +20,7 @@ async function authUserEmail(email, pwd) {
   const findUser = await getUserByEmailDB(email);
   if (!findUser.length) throw new Error('user exsists');
 
-  const hashPwd = findUser[0].pwd;
-
-  const isMatch = await bcrypt.compare(pwd, hashPwd);
+  const isMatch = await bcrypt.compare(pwd, findUser[0].pwd);
 
   if (!isMatch) throw new Error("password doesn't match");
 
